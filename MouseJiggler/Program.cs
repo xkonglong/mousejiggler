@@ -50,7 +50,7 @@ namespace ArkaneSystems.MouseJiggler
                 }
                 else
                 {
-                    Console.WriteLine (value: "Mouse Jiggler is already running. Aborting.");
+                    Console.WriteLine (value: "Mouse Jiggler 已运行. 正在中止.");
 
                     return 1;
                 }
@@ -87,41 +87,41 @@ namespace ArkaneSystems.MouseJiggler
             // Create root command.
             var rootCommand = new RootCommand
                               {
-                                  Description = "Virtually jiggles the mouse, making the computer seem not idle.",
+                                  Description = "虚拟晃动鼠标,避免电脑陷入空闲状态.",
                                   Handler =
                                       CommandHandler.Create (action: new Func<bool, bool, bool, int, int> (Program.RootHandler)),
                               };
 
             // -j --jiggle
-            Option optJiggling = new (aliases: new[] {"--jiggle", "-j",}, description: "Start with jiggling enabled.");
+            Option optJiggling = new (aliases: new[] {"--jiggle", "-j",}, description: "启动时晃动鼠标.");
             optJiggling.Argument = new Argument<bool> ();
             optJiggling.Argument.SetDefaultValue (value: false);
             rootCommand.AddOption (option: optJiggling);
 
             // -m --minimized
-            Option optMinimized = new (aliases: new[] {"--minimized", "-m",}, description: "Start minimized.");
+            Option optMinimized = new (aliases: new[] {"--minimized", "-m",}, description: "启动时最小化.");
             optMinimized.Argument = new Argument<bool> ();
             optMinimized.Argument.SetDefaultValue (value: Settings.Default.MinimizeOnStartup);
             rootCommand.AddOption (option: optMinimized);
 
             // -z --zen
-            Option optZen = new (aliases: new[] {"--zen", "-z",}, description: "Start with zen (invisible) jiggling enabled.");
+            Option optZen = new (aliases: new[] {"--zen", "-z",}, description: "启动时进入禅动模式(看不到鼠标晃动).");
             optZen.Argument = new Argument<bool> ();
             optZen.Argument.SetDefaultValue (value: Settings.Default.ZenJiggle);
             rootCommand.AddOption (option: optZen);
 
             // -s 60 --seconds=60
             Option optPeriod = new (aliases: new[] {"--seconds", "-s",},
-                                    description: "Set number of seconds for the jiggle interval.");
+                                    description: "设置鼠标晃动间隔,以秒为单位(1-60)..");
 
             optPeriod.Argument = new Argument<int> ();
 
             optPeriod.AddValidator (validate: p => p.GetValueOrDefault<int> () < 1
-                                                       ? "Period cannot be shorter than 1 second."
+                                                       ? "无法设置小于1秒."
                                                        : null);
 
             optPeriod.AddValidator (validate: p => p.GetValueOrDefault<int> () > 60
-                                                       ? "Period cannot be longer than 60 seconds."
+                                                       ? "无法设置大于60秒."
                                                        : null);
 
             optPeriod.Argument.SetDefaultValue (value: Settings.Default.JigglePeriod);

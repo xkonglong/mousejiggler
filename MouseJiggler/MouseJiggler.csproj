@@ -63,4 +63,8 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
     </None>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy D:\Tools\MouseJiggler\MouseJiggler_Src\bin\Release\net8.0-windows7.0\win-x64\*.* D:\Tools\MouseJiggler\ /y" />
+  </Target>
+
 </Project>

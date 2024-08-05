@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 using ArkaneSystems.MouseJiggler.Properties;
@@ -138,10 +139,20 @@ namespace ArkaneSystems.MouseJiggler
 
         private void MinimizeToTray()
         {
+            try
+            {
+                if (File.Exists(Path.Combine(Application.StartupPath, "MouseJiggler.ico")))
+                {
+                    this.niTray.Icon = new System.Drawing.Icon(Path.Combine(Application.StartupPath, "MouseJiggler.ico"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             this.Visible = false;
             this.ShowInTaskbar = false;
             this.niTray.Visible = true;
-
             this.UpdateNotificationAreaText();
         }
 

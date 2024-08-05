@@ -230,7 +230,7 @@ namespace ArkaneSystems.MouseJiggler
             MinimizeBox = false;
             Name = "MainForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Mouse Jiggler";
+            Text = "Mouse Jiggler 中文增强版";
             Load += MainForm_Load;
             Shown += MainForm_Shown;
             flpLayout.ResumeLayout(false);
