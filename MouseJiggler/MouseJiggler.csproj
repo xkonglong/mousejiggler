@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>ArkaneSystems.MouseJiggler</RootNamespace>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Mouse (ISO).ico</ApplicationIcon>
+    <ApplicationIcon>Mouse(xkl).ico</ApplicationIcon>
     <Version>2.0.15</Version>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
@@ -28,6 +28,10 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Mouse(xkl).ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
@@ -62,9 +66,5 @@ Tick the 'Jiggling?' checkbox to begin jiggling the mouse; untick it to stop. Th
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy D:\Tools\MouseJiggler\MouseJiggler_Src\bin\Release\net8.0-windows7.0\win-x64\*.* D:\Tools\MouseJiggler\ /y" />
-  </Target>
 
 </Project>

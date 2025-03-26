@@ -74,7 +74,7 @@ namespace ArkaneSystems.MouseJiggler
         {
             string txt = "MouseJiggler 是一个开源的鼠标晃动工具，它可以让你在任何时候、任何地点、任何情况下都能轻松地晃动你的鼠标。";
             txt += "\r\n\r\n\t原作者: Alistair J. R. Young 2007-2021";
-            txt += "\r\n\t小恐龙工作室 xkonglong.com汉化修改";
+            txt += "\r\n\t小恐龙工作室 xkonglong.com 汉化修改";
             MessageBox.Show(txt, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -141,6 +141,7 @@ namespace ArkaneSystems.MouseJiggler
         {
             try
             {
+                // 如果存在图标文件，则使用图标文件
                 if (File.Exists(Path.Combine(Application.StartupPath, "MouseJiggler.ico")))
                 {
                     this.niTray.Icon = new System.Drawing.Icon(Path.Combine(Application.StartupPath, "MouseJiggler.ico"));
@@ -236,7 +237,7 @@ namespace ArkaneSystems.MouseJiggler
             if (dTimer.Enabled)
             {
                 if (dTimer.Value < DateTime.Now)
-                    dTimer.Value = DateTime.Now.AddMinutes(5);
+                    dTimer.Value = DateTime.Now.AddMinutes(30);    // 30分钟
                 
             }
         }
