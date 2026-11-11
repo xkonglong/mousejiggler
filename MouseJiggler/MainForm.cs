@@ -41,6 +41,9 @@ namespace ArkaneSystems.MouseJiggler
             this.cbMinimize.Checked = minimizeOnStartup;
             this.cbZen.Checked = zenJiggleEnabled;
             this.tbPeriod.Value = jigglePeriod;
+            this.dtTimeStart.Value = DateTime.Today.Add(Settings.Default.TimeRangeStart);
+            this.dtTimeEnd.Value = DateTime.Today.Add(Settings.Default.TimeRangeEnd);
+            this.cbTimeRange.Checked = Settings.Default.TimeRangeEnabled;
         }
 
         public bool JiggleOnStartup { get; }
@@ -51,16 +54,31 @@ namespace ArkaneSystems.MouseJiggler
                 this.cbJiggling.Checked = true;
         }
 
+        private bool IsWithinJiggleTimeRange()
+        {
+            return !this.cbTimeRange.Checked ||
+                   Helpers.IsWithinTimeRange(DateTime.Now,
+                                             this.dtTimeStart.Value.TimeOfDay,
+                                             this.dtTimeEnd.Value.TimeOfDay);
+        }
+
         private void UpdateNotificationAreaText()
         {
             if (!this.cbJiggling.Checked)
             {
                 this.niTray.Text = "未晃动鼠标.";
             }
+            else if (!this.IsWithinJiggleTimeRange())
+            {
+                this.niTray.Text = $"等待晃动时段:{this.dtTimeStart.Value:HH:mm}-{this.dtTimeEnd.Value:HH:mm}";
+            }
             else
             {
                 string? ww = this.ZenJiggleEnabled ? "采用" : "未采用";
                 this.niTray.Text = $"每 {this.JigglePeriod} 秒晃动鼠标, {ww} 禅动模式.";
+
+                if (this.cbTimeRange.Checked)
+                    this.niTray.Text += $" 晃动时段:{this.dtTimeStart.Value:HH:mm}-{this.dtTimeEnd.Value:HH:mm}";
 
                 if (cbTimeEnd.Checked)
                 {
@@ -113,6 +131,12 @@ namespace ArkaneSystems.MouseJiggler
 
         private void jiggleTimer_Tick(object sender, EventArgs e)
         {
+            if (this.niTray.Visible)
+                this.UpdateNotificationAreaText();
+
+            if (!this.IsWithinJiggleTimeRange())
+                return;
+
             if (this.ZenJiggleEnabled)
                 Helpers.Jiggle(delta: 0);
             else if (this.Zig)
@@ -252,6 +276,29 @@ namespace ArkaneSystems.MouseJiggler
                 dTimer.Enabled = false;
             }
             Debug.WriteLine(DateTime.Now.ToString("HH:mm:ss"));
+        }
+
+        private void cbTimeRange_CheckedChanged(object sender, EventArgs e)
+        {
+            this.dtTimeStart.Enabled = this.cbTimeRange.Checked;
+            this.dtTimeEnd.Enabled = this.cbTimeRange.Checked;
+            Settings.Default.TimeRangeEnabled = this.cbTimeRange.Checked;
+            Settings.Default.Save();
+            this.UpdateNotificationAreaText();
+        }
+
+        private void dtTimeStart_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Default.TimeRangeStart = this.dtTimeStart.Value.TimeOfDay;
+            Settings.Default.Save();
+            this.UpdateNotificationAreaText();
+        }
+
+        private void dtTimeEnd_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Default.TimeRangeEnd = this.dtTimeEnd.Value.TimeOfDay;
+            Settings.Default.Save();
+            this.UpdateNotificationAreaText();
         }
     }
 }

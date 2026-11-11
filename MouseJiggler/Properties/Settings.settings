@@ -11,5 +11,14 @@
     <Setting Name="JigglePeriod" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="TimeRangeEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TimeRangeStart" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">09:00:00</Value>
+    </Setting>
+    <Setting Name="TimeRangeEnd" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">21:00:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

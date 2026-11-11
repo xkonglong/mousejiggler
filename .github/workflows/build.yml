@@ -1,0 +1,63 @@
+name: Build Windows packages
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rid:
+          - win-x64
+          - win-x86
+          - win-arm64
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Publish framework-dependent single file
+        shell: pwsh
+        run: |
+          dotnet publish MouseJiggler/MouseJiggler.csproj `
+            --configuration Release `
+            --runtime ${{ matrix.rid }} `
+            --self-contained false `
+            --nologo `
+            -p:PublishSingleFile=true `
+            -p:PublishTrimmed=false `
+            -p:PublishReadyToRun=false `
+            -p:DebugSymbols=false `
+            -p:DebugType=None `
+            --output artifacts/${{ matrix.rid }}
+          if ($LASTEXITCODE -ne 0) {
+            throw "dotnet publish failed with exit code $LASTEXITCODE"
+          }
+
+      - name: List published files
+        shell: pwsh
+        run: Get-ChildItem artifacts/${{ matrix.rid }} | Select-Object Name, Length
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: MouseJiggler-${{ matrix.rid }}
+          path: artifacts/${{ matrix.rid }}/
+          if-no-files-found: error
+          retention-days: 14

@@ -41,6 +41,11 @@ namespace ArkaneSystems.MouseJiggler
             panelSettings = new System.Windows.Forms.Panel();
             dTimer = new System.Windows.Forms.DateTimePicker();
             cbTimeEnd = new System.Windows.Forms.CheckBox();
+            cbTimeRange = new System.Windows.Forms.CheckBox();
+            lbTimeStart = new System.Windows.Forms.Label();
+            dtTimeStart = new System.Windows.Forms.DateTimePicker();
+            lbTimeEnd = new System.Windows.Forms.Label();
+            dtTimeEnd = new System.Windows.Forms.DateTimePicker();
             lbPeriod = new System.Windows.Forms.Label();
             tbPeriod = new System.Windows.Forms.TrackBar();
             cbMinimize = new System.Windows.Forms.CheckBox();
@@ -68,7 +73,7 @@ namespace ArkaneSystems.MouseJiggler
             flpLayout.Location = new System.Drawing.Point(0, 0);
             flpLayout.Name = "flpLayout";
             flpLayout.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            flpLayout.Size = new System.Drawing.Size(305, 190);
+            flpLayout.Size = new System.Drawing.Size(305, 258);
             flpLayout.TabIndex = 2;
             // 
             // panelBase
@@ -129,13 +134,18 @@ namespace ArkaneSystems.MouseJiggler
             panelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panelSettings.Controls.Add(dTimer);
             panelSettings.Controls.Add(cbTimeEnd);
+            panelSettings.Controls.Add(cbTimeRange);
+            panelSettings.Controls.Add(lbTimeStart);
+            panelSettings.Controls.Add(dtTimeStart);
+            panelSettings.Controls.Add(lbTimeEnd);
+            panelSettings.Controls.Add(dtTimeEnd);
             panelSettings.Controls.Add(lbPeriod);
             panelSettings.Controls.Add(tbPeriod);
             panelSettings.Controls.Add(cbMinimize);
             panelSettings.Controls.Add(cbZen);
             panelSettings.Location = new System.Drawing.Point(8, 47);
             panelSettings.Name = "panelSettings";
-            panelSettings.Size = new System.Drawing.Size(289, 134);
+            panelSettings.Size = new System.Drawing.Size(289, 202);
             panelSettings.TabIndex = 2;
             panelSettings.Visible = false;
             // 
@@ -160,6 +170,59 @@ namespace ArkaneSystems.MouseJiggler
             cbTimeEnd.Text = "停止晃动:";
             cbTimeEnd.UseVisualStyleBackColor = true;
             cbTimeEnd.CheckedChanged += cbTimeEnd_CheckedChanged;
+            // 
+            // cbTimeRange
+            // 
+            cbTimeRange.AutoSize = true;
+            cbTimeRange.Location = new System.Drawing.Point(10, 140);
+            cbTimeRange.Name = "cbTimeRange";
+            cbTimeRange.Size = new System.Drawing.Size(159, 21);
+            cbTimeRange.TabIndex = 11;
+            cbTimeRange.Text = "仅在指定时段晃动";
+            cbTimeRange.UseVisualStyleBackColor = true;
+            cbTimeRange.CheckedChanged += cbTimeRange_CheckedChanged;
+            // 
+            // lbTimeStart
+            // 
+            lbTimeStart.AutoSize = true;
+            lbTimeStart.Location = new System.Drawing.Point(10, 174);
+            lbTimeStart.Name = "lbTimeStart";
+            lbTimeStart.Size = new System.Drawing.Size(35, 17);
+            lbTimeStart.TabIndex = 12;
+            lbTimeStart.Text = "开始:";
+            // 
+            // dtTimeStart
+            // 
+            dtTimeStart.CustomFormat = "HH:mm";
+            dtTimeStart.Enabled = false;
+            dtTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dtTimeStart.Location = new System.Drawing.Point(48, 170);
+            dtTimeStart.Name = "dtTimeStart";
+            dtTimeStart.ShowUpDown = true;
+            dtTimeStart.Size = new System.Drawing.Size(80, 23);
+            dtTimeStart.TabIndex = 13;
+            dtTimeStart.ValueChanged += dtTimeStart_ValueChanged;
+            // 
+            // lbTimeEnd
+            // 
+            lbTimeEnd.AutoSize = true;
+            lbTimeEnd.Location = new System.Drawing.Point(137, 174);
+            lbTimeEnd.Name = "lbTimeEnd";
+            lbTimeEnd.Size = new System.Drawing.Size(35, 17);
+            lbTimeEnd.TabIndex = 14;
+            lbTimeEnd.Text = "结束:";
+            // 
+            // dtTimeEnd
+            // 
+            dtTimeEnd.CustomFormat = "HH:mm";
+            dtTimeEnd.Enabled = false;
+            dtTimeEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dtTimeEnd.Location = new System.Drawing.Point(175, 170);
+            dtTimeEnd.Name = "dtTimeEnd";
+            dtTimeEnd.ShowUpDown = true;
+            dtTimeEnd.Size = new System.Drawing.Size(80, 23);
+            dtTimeEnd.TabIndex = 15;
+            dtTimeEnd.ValueChanged += dtTimeEnd_ValueChanged;
             // 
             // lbPeriod
             // 
@@ -222,7 +285,7 @@ namespace ArkaneSystems.MouseJiggler
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            ClientSize = new System.Drawing.Size(304, 190);
+            ClientSize = new System.Drawing.Size(304, 258);
             Controls.Add(flpLayout);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
@@ -262,6 +325,11 @@ namespace ArkaneSystems.MouseJiggler
         private System.Windows.Forms.CheckBox cbTimeEnd;
         private System.Windows.Forms.DateTimePicker dTimer;
         private System.Windows.Forms.Timer stopTimer;
+        private System.Windows.Forms.CheckBox cbTimeRange;
+        private System.Windows.Forms.Label lbTimeStart;
+        private System.Windows.Forms.DateTimePicker dtTimeStart;
+        private System.Windows.Forms.Label lbTimeEnd;
+        private System.Windows.Forms.DateTimePicker dtTimeEnd;
     }
 }
 
