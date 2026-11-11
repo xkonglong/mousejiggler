@@ -50,19 +50,14 @@ jobs:
             throw "dotnet publish failed with exit code $LASTEXITCODE"
           }
 
-      - name: Create ZIP package
+      - name: List published files
         shell: pwsh
-        run: |
-          Get-ChildItem artifacts/${{ matrix.rid }} | Select-Object Name, Length
-          Compress-Archive `
-            -Path artifacts/${{ matrix.rid }}/* `
-            -DestinationPath artifacts/MouseJiggler-${{ matrix.rid }}.zip `
-            -Force
+        run: Get-ChildItem artifacts/${{ matrix.rid }} | Select-Object Name, Length
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
           name: MouseJiggler-${{ matrix.rid }}
-          path: artifacts/MouseJiggler-${{ matrix.rid }}.zip
+          path: artifacts/${{ matrix.rid }}/
           if-no-files-found: error
           retention-days: 14
