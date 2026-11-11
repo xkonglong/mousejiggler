@@ -41,7 +41,6 @@ jobs:
             --self-contained false `
             --nologo `
             -p:PublishSingleFile=true `
-            -p:EnableCompressionInSingleFile=true `
             -p:PublishTrimmed=false `
             -p:PublishReadyToRun=false `
             -p:DebugSymbols=false `
