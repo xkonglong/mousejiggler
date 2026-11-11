@@ -58,5 +58,41 @@ namespace ArkaneSystems.MouseJiggler.Properties {
                 this["JigglePeriod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TimeRangeEnabled {
+            get {
+                return ((bool)(this["TimeRangeEnabled"]));
+            }
+            set {
+                this["TimeRangeEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("09:00:00")]
+        public global::System.TimeSpan TimeRangeStart {
+            get {
+                return ((global::System.TimeSpan)(this["TimeRangeStart"]));
+            }
+            set {
+                this["TimeRangeStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("21:00:00")]
+        public global::System.TimeSpan TimeRangeEnd {
+            get {
+                return ((global::System.TimeSpan)(this["TimeRangeEnd"]));
+            }
+            set {
+                this["TimeRangeEnd"] = value;
+            }
+        }
     }
 }

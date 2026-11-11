@@ -68,5 +68,24 @@ namespace ArkaneSystems.MouseJiggler
         }
 
         #endregion Jiggling
+
+        #region Time range
+
+        /// <summary>
+        ///     Determine whether a time falls within the configured range. The end time is exclusive.
+        /// </summary>
+        internal static bool IsWithinTimeRange (DateTime time, TimeSpan start, TimeSpan end)
+        {
+            if (start == end)
+                return true;
+
+            TimeSpan current = time.TimeOfDay;
+
+            return start < end
+                       ? current >= start && current < end
+                       : current >= start || current < end;
+        }
+
+        #endregion Time range
     }
 }
